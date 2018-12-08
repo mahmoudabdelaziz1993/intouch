@@ -7,6 +7,13 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const passportSteup = require('./config/passport');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20');
+
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+
+const keys = require('./config/keys');
 
 var app = express();
 //DB setup
@@ -21,6 +28,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret:keys.session.secret,
+  resave:true,
+  saveUninitialized: true,
+  store: new MongoStore({mongooseConnection: mongoose.connection})
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use('/', indexRouter);
 app.use('/auth', usersRouter);

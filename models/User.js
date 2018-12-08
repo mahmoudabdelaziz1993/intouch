@@ -1,14 +1,15 @@
 var mongoose = require('mongoose');
+const bycrpt = require('bcrypt-nodejs');
   var Schema = mongoose.Schema;
 
   var userSchema = new Schema({
     username:{type: String,
     required: true},
-    gender:{type: String,
-    required: true},
+    gender:{type: String},
     image:{type: String},
     social_id:String,
     password: { type: String, default: null },
+    email:{type: String, default: null}
   });
 
 //   userSchema.methods.findOrCreate = function(data, callback){
@@ -37,5 +38,17 @@ var mongoose = require('mongoose');
 //     }
 //   });
 // };
+
+
+//-----------------------------------bycrpt password ---------------------------
+userSchema.methods.encryptpass = function (password) {
+  return bycrpt.hashSync(password,bycrpt.genSaltSync(10),null);
+}
+
+//--------------------------------- compare password with the hash ----------------
+userSchema.methods.validpassword = function(password){
+  return bycrpt.compareSync(password, this.password);
+
+}
   var User = mongoose.model('users',userSchema);
   module.exports={User};
