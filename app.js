@@ -16,6 +16,10 @@ var MongoStore = require('connect-mongo')(session);
 const keys = require('./config/keys');
 
 var app = express();
+//setup socket io frist step with express genrator 
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 //DB setup
 var {mongoose} = require('./config/mongoose');
 
@@ -28,6 +32,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//setup socket io  step 5th with express genrator
+app.use(function(req, res, next){
+  res.io = io;
+  next();
+});
 
 app.use(session({
   secret:keys.session.secret,
@@ -59,5 +69,5 @@ app.use(function(err, req, res, next) {
   next(createError(404));
   //res.render('error');
 });
-
-module.exports = app;
+//setup socket io  step 2  with express genrator to export server to www
+module.exports = {app:app,server:server};

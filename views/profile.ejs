@@ -1,47 +1,33 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title> title</title>
-    <link rel='stylesheet' href='/css/home.css' />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  </head>
-  <body>
-    <ul>
-
-    <li><a class="active" href="/">Home</a></li>
-    <div class="dropdown">
-  <button class="dropbtn"><%=req.user.username%></button>
-  <div class="dropdown-content">
-    <a href="/auth/logout">Logout</a>
-    
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>intouch - Rooms</title>
+  <link rel="stylesheet" href="./css/roomsStyles.css">
+  <script src="/js/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="titlePanel">
+      <h1>intouch | Select or Create a Chatroom</h1>
+    </div>
+    <div class="controls">
+      <div class="userPicHolder"><img src="<%=user.image%>" alt="<%=user.username%>"></div>
+      <p class="userName"><%=user.username%></p>
+      <a href="/auth/logout" id="logOutBtn">Logout</a>
+    </div>
+    <div class="controls">
+      <input type="text" name="roomName" placeholder="Create a new Chatroom">
+      <a href="#" id="createBtn">Create</a>
+    </div>
+    <div class="roomsListDiv">
+      <ul class="roomsList" id="roomsListUL">
+      <!-- Loop list items here -->
+        <a href="chatroom.htm"><li>World Cuisine</li></a>
+        <a href="chatroom.htm"><li>Coffee and Conversations</li></a>
+      <!-- Loop ends -->
+      </ul>
+    </div>
   </div>
-</div>
-     
-    <div>LOREMIPSUM.COM</div>
-</ul>
-<div class="maincolor">
-    <div class="content">
-     <h1 class="head">Lorem ipsum dolor sit amet</h1>
-     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla hendrerit urna ac felis condimentum, sit amet cursus lacus ultricies. Cras eget fringilla odio, quis varius felis. Ut elementum id mi sit amet elementum. Vestibulum ac venenatis lorem. Nulla tempus eu massa sit amet vehicula. Cras a mi a tellus posuere efficitur. Nam eros velit, venenatis sed sem sit amet, dictum egestas augue. Nam et iaculis metus. Cras sit amet tempus arcu. Donec feugiat consequat eros a porttitor.</p>
-     <form method="get" action="/login">
-         <button class="btn btn-success" type="submit">Start today</button>
-     </form>
-     
-</div>
-
-<div class="main">
-        <h1>Team and Administrators</h1>
-    <div class="profiles">
-        <img class="profile-pic" 
-        src="/images/1150341_658807634221691_5719647891456350915_n.jpg" width="200" height="200">
-        <h2>Freelance Web Developer</h2>
-        <h3>Mahmoud Abdelaziz</h3>
-        </div>
-</div>
-
-
-
-
-<div class="foot"><h2>© LoremIpsum Inc.</h2></div>
-  </body>
+</body>
 </html>
